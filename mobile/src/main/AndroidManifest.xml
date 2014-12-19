@@ -21,15 +21,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <!--
-                <category android:name="android.intent.category.LAUNCHER" />
-                -->
-
-                <!--
-                <action android:name="com.android.mail.action.update_notification" />
-                <data android:mimeType="application/gmail-ls" />
-                -->
             </intent-filter>
         </activity>
 

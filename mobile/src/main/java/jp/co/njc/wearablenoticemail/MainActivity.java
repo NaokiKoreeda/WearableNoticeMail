@@ -62,19 +62,12 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
             R.id.number_entry,
             R.id.unread_count_number_entry };
 
-    // Broadcast Receiver
-    //MyBroadcastReceiver myReceiver;
     IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        myReceiver = new MyBroadcastReceiver();
-//        intentFilter = new IntentFilter("MY_SPECIFIC_ACTION");
-
-
     }
 
     @Override
@@ -220,7 +213,6 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -269,7 +261,6 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
                     } catch (IOException ioe) {
                         //
                     }
-
                 }
             });
             builder.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
@@ -285,18 +276,4 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
 
         return super.onOptionsItemSelected(item);
     }
-
-//    public class MyBroadcastReceiver extends BroadcastReceiver {
-//        @Override
-//        public void onReceive(Context context, Intent intent){
-//            Log.d(TAG, "You've Got Mail!!");
-//            for (String key : intent.getExtras().keySet()) {
-//                Log.d(TAG, key + ": " + intent.getExtras().get(key));
-//            }
-//            Toast.makeText(context,
-//                    "Received broadcast in MyReceiver, " +
-//                            " value received: " + intent.getStringExtra("key"),
-//                    Toast.LENGTH_LONG).show();
-//            }
-//        }
 }
