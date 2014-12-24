@@ -13,6 +13,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -36,6 +39,13 @@
             <intent-filter>
                 <action android:name="com.android.mail.action.update_notification" />
                 <data android:mimeType="application/gmail-ls" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".NotificationIntentReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.android.support.wearable.notifications.ACTION_EXAMPLE" />
             </intent-filter>
         </receiver>
 
