@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_app_img"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data
@@ -21,18 +21,9 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-
-        <!-- By default it launches the phone mode -->
-        <activity android:name="LabelDetailsActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
-
 
         <!-- Broadcast Receiver -->
         <receiver android:name=".MyReceiver" >
@@ -48,16 +39,6 @@
                 <action android:name="com.example.android.support.wearable.notifications.ACTION_EXAMPLE" />
             </intent-filter>
         </receiver>
-
-        <!--
-        <provider
-            android:name=".provider.PublicContentProvider"
-            android:readPermission="com.google.android.gm.permission.READ_CONTENT_PROVIDER"
-            android:multiprocess="false"
-            android:authorities="com.google.android.gm" >
-            <grant-uri-permission  android:pathPattern=".*" />
-        </provider>
-        -->
 
     </application>
 

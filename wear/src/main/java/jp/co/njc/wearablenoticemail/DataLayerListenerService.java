@@ -1,19 +1,13 @@
 package jp.co.njc.wearablenoticemail;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Vibrator;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 
 /**
+ * DataLayerListenerService
  * Created by njc50031 on 2014/12/19.
  */
 public class DataLayerListenerService extends WearableListenerService {
@@ -30,41 +24,22 @@ public class DataLayerListenerService extends WearableListenerService {
         if (START_ACTIVITY_PATH.equals(messageEvent.getPath())) {
             Log.i(TAG, "Message Received !!");
 
-            // メール通知とかぶらないように待機
-            sleep(1000);
-//
-//            int notificationId = 1;
-//            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-//            notificationManagerCompat.notify(notificationId, builder.build());
+            int vibeTime = 5000;
+            String strVibeTime = new String(messageEvent.getData());
+            if (!strVibeTime.equals("") && !strVibeTime.equals("0")) {
+                vibeTime = (Integer.parseInt(strVibeTime)) * 1000;
+            }
 
-
-            vibrator.vibrate(10000);
+//            // メール通知とかぶらないように待機
+//            sleep(1500);
+            // バイブレーション
+            vibrator.vibrate(vibeTime);
 
         } else if (TAP_ACTION_PATH.equals(messageEvent.getPath())) {
             Log.i(TAG, "Tapping Received !!");
             vibrator.cancel();
         }
     }
-
-    private static NotificationCompat.Builder applyBasicOptions(Context context,
-                                                                NotificationCompat.Builder builder,
-                                                                NotificationCompat.WearableExtender wearableOptions) {
-        builder.setContentTitle("重要！！")
-                .setContentText("重要メールを確認")
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setPriority(Notification.PRIORITY_HIGH);
-//                .setDeleteIntent(NotificationUtil.getExamplePendingIntent(
-//                        context, R.string.example_notification_deleted));
-//        if (options.hasContentIntent) {
-//            builder.setContentIntent(NotificationUtil.getExamplePendingIntent(context,
-//                    R.string.content_intent_clicked));
-//        }
-//        if (options.vibrate) {
-//            builder.setVibrate(new long[] {0, 100, 50, 100} );
-//        }
-        return builder;
-    }
-
 
     public synchronized void sleep(long msec) {
         try

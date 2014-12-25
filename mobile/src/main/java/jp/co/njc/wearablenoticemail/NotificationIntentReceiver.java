@@ -1,12 +1,11 @@
 package jp.co.njc.wearablenoticemail;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.RemoteInput;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -19,6 +18,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
+ * NotificationIntentReceiver
  * Created by njc50031 on 2014/12/24.
  */
 public class NotificationIntentReceiver extends BroadcastReceiver {
@@ -48,7 +48,13 @@ public class NotificationIntentReceiver extends BroadcastReceiver {
         mGoogleApiClient.connect();
 
         if (intent.getAction().equals(ACTION_EXAMPLE)) {
-                sendMessageToStartActivity();
+            // WearにMessage送信
+            sendMessageToStartActivity();
+
+            // 通知を削除
+            NotificationManager notificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(MyReceiver.NOTIFICATION_ID);
         }
 
         if (mGoogleApiClient.isConnected()) {
@@ -68,7 +74,7 @@ public class NotificationIntentReceiver extends BroadcastReceiver {
                         for (Node node : getConnectedNodesResult.getNodes()) {
                             results.add(node.getId());
                         }
-                        sendMessageApi (results);
+                        sendMessageApi(results);
                     }
                 }
         );

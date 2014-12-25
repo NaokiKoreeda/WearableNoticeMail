@@ -13,7 +13,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:text="通知ラベル"
+        android:text="@string/label_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
@@ -22,26 +22,36 @@
 
     <TextView
         android:id="@+id/MainLabelName"
-        android:text="Wear"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#DDDED3"
         android:textSize="20dip"
         />
 
-</LinearLayout>
-
-
-
-    <!--
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <fragment android:name="jp.co.njc.wearablenoticemail.LabelListFragment"
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:text="@string/vibration_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="24dip"
         />
-</FrameLayout>
-    -->
+
+    <TextView
+        android:id="@+id/VibeTime"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#DDDED3"
+        android:textSize="20dip"
+        />
+
+    <TextView
+        android:id="@+id/HidMailUri"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        />
+
+</LinearLayout>

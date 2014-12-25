@@ -161,14 +161,12 @@ public class GmailContract {
          * label items.
          */
         public static final String CONTENT_TYPE =
-                //"vnd.android.cursor.dir/vnd.jp.co.njc.wearablenoticemail.label";
                 "vnd.android.cursor.dir/vnd.com.google.android.gm.label";
 
         /**
          * The MIME-type of a label item.
          */
         public static final String CONTENT_ITEM_TYPE =
-                //"vnd.android.cursor.item/vnd.jp.co.njc.wearablenoticemail.label";
                 "vnd.android.cursor.item/vnd.com.google.android.gm.label";
 
         /**

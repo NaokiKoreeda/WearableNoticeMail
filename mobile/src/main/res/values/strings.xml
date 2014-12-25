@@ -2,9 +2,14 @@
 <resources>
 
     <string name="app_name">Wearable Notice Mail</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">設定</string>
+    <string name="label_name">通知ラベル</string>
+    <string name="vibration_time">振動時間</string>
+
+    <string name="content_title">重要！！</string>
+    <string name="content_text">重要なメールを検知。</string>
 
     <string name="example_content_action_clicked">Example content action clicked</string>
+    <string name="example_notification_deleted">Example notification deleted</string>
 
 </resources>

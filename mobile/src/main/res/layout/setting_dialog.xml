@@ -18,4 +18,31 @@
         android:layout_height="wrap_content"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="振動時間"
+        />
+    <RadioGroup
+        android:id="@+id/vibe_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/vibe_radio_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2秒"/>
+        <RadioButton
+            android:id="@+id/vibe_radio_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5秒"/>
+        <RadioButton
+            android:id="@+id/vibe_radio_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10秒"/>
+    </RadioGroup>
+
+
 </LinearLayout>
