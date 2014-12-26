@@ -3,6 +3,7 @@ package jp.co.njc.wearablenoticemail;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,11 +29,13 @@ public class MainActivity extends Activity {
 
     static final String FILE_NAME = "WNM_FILE";
     static final String TAG = "WearableNoticeMail";
+    Resources res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        res = this.getResources();
     }
 
     @Override
@@ -46,19 +49,19 @@ public class MainActivity extends Activity {
         if (lblList != null && lblList.size() > 0) {
             // 設定済のラベルを検索
             if (lblList.get(0).equals("")) {
-                txtV.setText("設定されていません");
+                txtV.setText(res.getString(R.string.no_setting));
             } else {
                 txtV.setText(lblList.get(0));
             }
             // 設定済の振動時間を検索
             if (lblList.get(1).equals("")) {
-                txtVT.setText("5秒");
+                txtVT.setText(res.getString(R.string.five_second));
             } else {
-                txtVT.setText(lblList.get(1) + "秒");
+                txtVT.setText(lblList.get(1) + res.getString(R.string.second));
             }
         } else {
-            txtV.setText("設定されていません");
-            txtVT.setText("5秒");
+            txtV.setText(res.getString(R.string.no_setting));
+            txtVT.setText(res.getString(R.string.five_second));
         }
     }
 
@@ -162,9 +165,9 @@ public class MainActivity extends Activity {
 
             // アラートダイアログ を生成
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("ラベル設定");
+            builder.setTitle(res.getString(R.string.set_label));
             builder.setView(layout);
-            builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(res.getString(R.string.btn_save), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // OK ボタンクリック処理
                     EditText lblName = (EditText) layout.findViewById(R.id.lblName);
@@ -189,32 +192,33 @@ public class MainActivity extends Activity {
                         writer.println(strLblNm);
                         writer.println(strVibe);
                         writer.close();
+                        fos.close();
 
                         // メイン画面に反映
                         TextView txtV = (TextView) findViewById(R.id.MainLabelName);
                         if (!strLblNm.equals("")) {
                             txtV.setText(strLblNm);
                         } else {
-                            txtV.setText("設定されていません");
+                            txtV.setText(res.getString(R.string.no_setting));
                         }
 
                         TextView txtVT = (TextView) findViewById(R.id.VibeTime);
                         if (!strVibe.equals("")) {
                             if (strVibe.equals("2")) {
-                                txtVT.setText("2秒");
+                                txtVT.setText(res.getString(R.string.two_second));
                             } else if (strVibe.equals("10")) {
-                                txtVT.setText("10秒");
+                                txtVT.setText(res.getString(R.string.ten_second));
                             } else {
-                                txtVT.setText("5秒");
+                                txtVT.setText(res.getString(R.string.five_second));
                             }
                         }
 
                     } catch (IOException ioe) {
-                        //
+                        Log.e(TAG, ioe.getMessage());
                     }
                 }
             });
-            builder.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(res.getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Cancel ボタンクリック処理
                 }

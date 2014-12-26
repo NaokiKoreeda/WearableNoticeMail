@@ -22,7 +22,7 @@ public class DataLayerListenerService extends WearableListenerService {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         if (START_ACTIVITY_PATH.equals(messageEvent.getPath())) {
-            Log.i(TAG, "Message Received !!");
+            Log.d(TAG, "Message Received !!");
 
             int vibeTime = 5000;
             String strVibeTime = new String(messageEvent.getData());
@@ -30,13 +30,13 @@ public class DataLayerListenerService extends WearableListenerService {
                 vibeTime = (Integer.parseInt(strVibeTime)) * 1000;
             }
 
-//            // メール通知とかぶらないように待機
-//            sleep(1500);
+            // メール通知とかぶらないように待機
+            sleep(1000);
             // バイブレーション
             vibrator.vibrate(vibeTime);
 
         } else if (TAP_ACTION_PATH.equals(messageEvent.getPath())) {
-            Log.i(TAG, "Tapping Received !!");
+            Log.d(TAG, "Tapping Received !!");
             vibrator.cancel();
         }
     }
@@ -46,7 +46,7 @@ public class DataLayerListenerService extends WearableListenerService {
         {
             wait(msec);
         }catch(InterruptedException e){
-            //
+            Log.e(TAG, e.getMessage());
         }
     }
 }

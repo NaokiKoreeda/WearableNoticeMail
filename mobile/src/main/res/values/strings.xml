@@ -5,6 +5,16 @@
     <string name="action_settings">設定</string>
     <string name="label_name">通知ラベル</string>
     <string name="vibration_time">振動時間</string>
+    <string name="second">秒</string>
+
+    <string name="set_label">ラベル設定</string>
+    <string name="btn_save">保存</string>
+    <string name="btn_cancel">キャンセル</string>
+
+    <string name="no_setting">設定されていません</string>
+    <string name="two_second">2秒</string>
+    <string name="five_second">5秒</string>
+    <string name="ten_second">10秒</string>
 
     <string name="content_title">重要！！</string>
     <string name="content_text">重要なメールを検知。</string>

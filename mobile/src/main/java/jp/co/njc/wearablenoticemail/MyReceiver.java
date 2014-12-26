@@ -117,10 +117,12 @@ public class MyReceiver extends BroadcastReceiver {
 
             } catch (IOException ioe) {
                 // ファイルがない場合
+                Log.e(TAG, ioe.getMessage());
                 return;
             }
             // ラベルが空白の場合リターン
             if (lblSaving.equals("")) {
+                Log.i(TAG, "Label not found.");
                 return;
             }
 
@@ -169,7 +171,6 @@ public class MyReceiver extends BroadcastReceiver {
                                 R.drawable.ic_tap, null, NotificationUtil.getExamplePendingIntent(
                                 context, R.string.example_content_action_clicked)).build();
 
-
                         NotificationCompat.WearableExtender wearableOptions = new NotificationCompat.WearableExtender()
                                 .addAction(action)
                                 .setContentAction(0);
@@ -184,6 +185,8 @@ public class MyReceiver extends BroadcastReceiver {
                     }
                 }
             }
+            // Close Cursor
+            c.close();
         }
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
@@ -206,8 +209,9 @@ public class MyReceiver extends BroadcastReceiver {
             writer.println(readCnt);
             writer.println(unreadCnt);
             writer.close();
+            fos.close();
         } catch (IOException ioe) {
-            //
+            Log.e(TAG, ioe.getMessage());
         }
     }
 
