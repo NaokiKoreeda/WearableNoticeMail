@@ -19,8 +19,14 @@ android {
     }
 }
 
+//dependencies {
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
+//    wearApp project(':wear')
+//    compile 'com.google.android.gms:play-services:+'
+//}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
     compile 'com.google.android.gms:play-services:+'
+    wearApp project(':wear')
+    //wearApp files('/wear-release.apk')
 }

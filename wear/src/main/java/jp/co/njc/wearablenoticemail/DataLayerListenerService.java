@@ -30,6 +30,8 @@ public class DataLayerListenerService extends WearableListenerService {
                 vibeTime = (Integer.parseInt(strVibeTime)) * 1000;
             }
 
+            Log.d(TAG, "vibeTime :" + String.valueOf(vibeTime));
+
             // メール通知とかぶらないように待機
             sleep(1000);
             // バイブレーション
