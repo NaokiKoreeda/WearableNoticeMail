@@ -1,8 +1,10 @@
 package jp.co.njc.wearablenoticemail;
 
+import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 
+import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 
@@ -15,11 +17,12 @@ public class DataLayerListenerService extends WearableListenerService {
     public static final String START_ACTIVITY_PATH = "/notice";
     public static final String TAP_ACTION_PATH = "/tap";
     private static final String TAG = "DataLayerListenerService";
+    Vibrator vibrator;
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
 
-        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         if (START_ACTIVITY_PATH.equals(messageEvent.getPath())) {
             Log.d(TAG, "Message Received !!");
@@ -41,6 +44,13 @@ public class DataLayerListenerService extends WearableListenerService {
             Log.d(TAG, "Tapping Received !!");
             vibrator.cancel();
         }
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d(TAG, "onUnbind !!");
+        vibrator.cancel();
+        return super.onUnbind(intent);
     }
 
     public synchronized void sleep(long msec) {

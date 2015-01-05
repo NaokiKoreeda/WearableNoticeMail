@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+import android.view.Gravity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -37,7 +38,7 @@ public class MyReceiver extends BroadcastReceiver {
     static final String FILE_NAME = "WNM_FILE";
     public static final String START_ACTIVITY_PATH = "/notice";
     private static final String TAG = "Receiver";
-    protected static final int NOTIFICATION_ID = 100;
+    protected static final int NOTIFICATION_ID = 001;
 
     private GoogleApiClient mGoogleApiClient = null;
 
