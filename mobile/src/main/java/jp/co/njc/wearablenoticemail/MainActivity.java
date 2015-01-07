@@ -81,6 +81,8 @@ public class MainActivity extends Activity {
             int row = 0;
             String lblSaving = "";
             String lblSavingVibe = "";
+            String lblSavingAllCount = "";
+            String lblSavingUnreadCount = "";
             String str = reader.readLine();
             while (str != null) {
                 if (row == 0) {
@@ -91,6 +93,14 @@ public class MainActivity extends Activity {
                     // 2行目がバイブレーション時間
                     lblSavingVibe = str;
                 }
+                if (row == 2) {
+                    // 3行目がメール数
+                    lblSavingAllCount = str;
+                }
+                if (row == 3) {
+                    // 4行目が未読数
+                    lblSavingUnreadCount = str;
+                }
                 str = reader.readLine();
                 row++;
             }
@@ -99,6 +109,8 @@ public class MainActivity extends Activity {
 
             retList.add(lblSaving);
             retList.add(lblSavingVibe);
+            retList.add(lblSavingAllCount);
+            retList.add(lblSavingUnreadCount);
 
             return retList;
 
@@ -142,9 +154,13 @@ public class MainActivity extends Activity {
             RadioButton rb10 = (RadioButton) layout.findViewById(R.id.vibe_radio_10);
             // 現在設定されているラベル取得
             final List<String> listLbl = getLabelName();
+            String strLocalLabelTemp = "";
+            String strAllCountTemp = "0";
+            String strUnreadCountTemp = "0";
             if (listLbl != null && listLbl.size() > 0) {
                 if (!listLbl.get(0).equals("")) {
                     txtDialogV.setText(listLbl.get(0));
+                    strLocalLabelTemp = listLbl.get(0);
                 }
                 // 現在設定されている振動時間を取得
                 if (!listLbl.get(1).equals("")) {
@@ -159,9 +175,22 @@ public class MainActivity extends Activity {
                 } else {
                     rb5.setChecked(true);
                 }
+                // 現在設定されているメール数取得
+                if (!listLbl.get(2).equals("")) {
+                    strAllCountTemp = listLbl.get(2);
+                }
+                // 現在設定されている未読数取得
+                if (!listLbl.get(3).equals("")) {
+                    strUnreadCountTemp = listLbl.get(3);
+                }
+
             } else {
                 rb5.setChecked(true);
             }
+
+            final String strLocalLabel = strLocalLabelTemp;
+            final String strLocalAllCount = strAllCountTemp;
+            final String strLocalUnreadCount = strUnreadCountTemp;
 
             // アラートダイアログ を生成
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -189,8 +218,16 @@ public class MainActivity extends Activity {
                     try {
                         FileOutputStream fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
                         PrintWriter writer = new PrintWriter(new OutputStreamWriter(fos, "UTF-8"));
-                        writer.println(strLblNm);
-                        writer.println(strVibe);
+                        writer.println(strLblNm);   // ラベル名
+                        writer.println(strVibe);    // 振動時間
+                        if (!strLocalLabel.equals(strLblNm)) {
+                            // ラベルが変更されたときはカウントリセット
+                            writer.println("0");        // メール数
+                            writer.println("0");        // 未読数
+                        } else {
+                            writer.println(strLocalAllCount);        // メール数
+                            writer.println(strLocalUnreadCount);        // 未読数
+                        }
                         writer.close();
                         fos.close();
 
@@ -224,6 +261,20 @@ public class MainActivity extends Activity {
                 }
             });
 
+            // 表示
+            builder.create().show();
+            return true;
+        }
+
+        if (id == R.id.action_version) {
+            // カスタムビューを設定
+            LayoutInflater inflater = (LayoutInflater) this.getSystemService(
+                    LAYOUT_INFLATER_SERVICE);
+            final View layout = inflater.inflate(R.layout.version,
+                    (ViewGroup) findViewById(R.id.layout_root));
+            // アラートダイアログ を生成
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(layout);
             // 表示
             builder.create().show();
             return true;

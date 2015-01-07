@@ -72,6 +72,16 @@ public class MyReceiver extends BroadcastReceiver {
             return;
         }
 
+        String tagLabel = "";
+        if (intent.getExtras().get("tagLabel") != null) {
+            tagLabel = intent.getExtras().get("tagLabel").toString();
+        }
+
+        for (String key : intent.getExtras().keySet()) {
+            Log.d(TAG, key + ": " + intent.getExtras().get(key));
+        }
+        String s = intent.getDataString();
+
         Cursor c = context.getContentResolver().query(GmailContract.Labels.getLabelsUri(account),
                 null, null, null, null);
 
@@ -79,7 +89,7 @@ public class MyReceiver extends BroadcastReceiver {
         if (c != null) {
             String lblSaving = "";
             String vibeTime = "5";
-            int intReadLocal = 0;
+            int intAllLocal = 0;
             int intUnreadLocal = 0;
             // ローカルファイルから情報取得
             try {
@@ -101,7 +111,7 @@ public class MyReceiver extends BroadcastReceiver {
                     if (row == 2) {
                         // 3行目がメール数
                         if (!str.equals("")) {
-                            intReadLocal = Integer.parseInt(str);
+                            intAllLocal = Integer.parseInt(str);
                         }
                     }
                     if (row == 3) {
@@ -129,18 +139,18 @@ public class MyReceiver extends BroadcastReceiver {
 
             final String inboxCanonicalName = lblSaving.toLowerCase();
             final int canonicalNameIndex = c.getColumnIndexOrThrow(GmailContract.Labels.CANONICAL_NAME);
-            final int readCntIndex = c.getColumnIndexOrThrow(GmailContract.Labels.NUM_CONVERSATIONS);
+            final int allCntIndex = c.getColumnIndexOrThrow(GmailContract.Labels.NUM_CONVERSATIONS);
             final int unreadCntIndex = c.getColumnIndexOrThrow(GmailContract.Labels.NUM_UNREAD_CONVERSATIONS);
             boolean isNotification = false; // 通知可否
-            int intReadSv = 0;
+            int intAllSv = 0;
             int intUnreadSv = 0;
             while (c.moveToNext()) {
                 if (inboxCanonicalName.equals(c.getString(canonicalNameIndex))) {
                     // メールボックスのメール数・未読数
-                    String strReadCnt = c.getString(readCntIndex);
+                    String strAllCnt = c.getString(allCntIndex);
                     String strUnreadCnt = c.getString(unreadCntIndex);
-                    if (strReadCnt != null) {
-                        intReadSv = Integer.parseInt(strReadCnt);
+                    if (strAllCnt != null) {
+                        intAllSv = Integer.parseInt(strAllCnt);
                     }
                     if (strUnreadCnt != null) {
                         intUnreadSv = Integer.parseInt(strUnreadCnt);
@@ -148,18 +158,18 @@ public class MyReceiver extends BroadcastReceiver {
                     if (intUnreadLocal < intUnreadSv) {
                         // 未読数が増加
                         isNotification = true;
-                    } else if (intUnreadLocal == intUnreadSv && intReadLocal < intReadSv) {
-                        // 未読数が変わらずメール数が増加
+                    } else if (intUnreadSv > 0 && intUnreadLocal >= intUnreadSv && intAllLocal < intAllSv) {
+                        // 未読数が減少か変わらずメール数が増加
                         isNotification = true;
                     }
 
-                    Log.d(TAG, "Count: " + String.valueOf(intReadSv));
+                    Log.d(TAG, "Count: " + String.valueOf(intAllSv));
                     Log.d(TAG, "Unread Count: " + String.valueOf(intUnreadSv));
-                    Log.d(TAG, "Count(Local): " + String.valueOf(intReadLocal));
+                    Log.d(TAG, "Count(Local): " + String.valueOf(intAllLocal));
                     Log.d(TAG, "Unread Count(Local): " + String.valueOf(intUnreadLocal));
 
                     // ローカルファイルに現状を書き込み
-                    this.setLocalFile(context, lblSaving, vibeTime, strReadCnt, strUnreadCnt);
+                    this.setLocalFile(context, lblSaving, vibeTime, strAllCnt, strUnreadCnt);
 
                     if (isNotification) {
                         sendMessageToStartActivity(vibeTime.getBytes());
@@ -179,7 +189,7 @@ public class MyReceiver extends BroadcastReceiver {
                         builder.extend(wearableOptions);
 
                         // メール通知とかぶらないように待機
-                        sleep(1500);
+                        sleep(2000);
 
                         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
                         notificationManagerCompat.notify(notificationId, builder.build());

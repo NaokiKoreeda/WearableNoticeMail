@@ -19,6 +19,8 @@
     <string name="content_title">重要！！</string>
     <string name="content_text">重要なメールを検知。</string>
 
+    <string name="action_version">バージョン情報</string>
+
     <string name="example_content_action_clicked">Example content action clicked</string>
     <string name="example_notification_deleted">Example notification deleted</string>
 
