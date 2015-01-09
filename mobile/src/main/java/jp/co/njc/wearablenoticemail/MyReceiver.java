@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
-import android.view.Gravity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -71,16 +70,6 @@ public class MyReceiver extends BroadcastReceiver {
         if (account.equals("")) {
             return;
         }
-
-        String tagLabel = "";
-        if (intent.getExtras().get("tagLabel") != null) {
-            tagLabel = intent.getExtras().get("tagLabel").toString();
-        }
-
-        for (String key : intent.getExtras().keySet()) {
-            Log.d(TAG, key + ": " + intent.getExtras().get(key));
-        }
-        String s = intent.getDataString();
 
         Cursor c = context.getContentResolver().query(GmailContract.Labels.getLabelsUri(account),
                 null, null, null, null);
