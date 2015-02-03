@@ -119,9 +119,6 @@ public class MyReceiver extends BroadcastReceiver {
                 Log.d(TAG, "Label: " + lblSaving);
                 Log.d(TAG, "Vibration Time: " + vibeTime);
 
-                //TODO
-                //Toast.makeText(context, "Label: " + lblSaving + ", Vibration Time: " + vibeTime, Toast.LENGTH_LONG).show();
-
             } catch (IOException ioe) {
                 // ファイルがない場合
                 Log.e(TAG, ioe.getMessage());
@@ -280,6 +277,7 @@ public class MyReceiver extends BroadcastReceiver {
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDeleteIntent(NotificationUtil.getExamplePendingIntent(
                         context, R.string.example_notification_deleted));
+
         return builder;
     }
 }

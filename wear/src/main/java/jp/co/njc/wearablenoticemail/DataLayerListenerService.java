@@ -1,10 +1,8 @@
 package jp.co.njc.wearablenoticemail;
 
-import android.content.Context;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
@@ -40,18 +38,33 @@ public class DataLayerListenerService extends WearableListenerService {
 
             Log.d(TAG, "vibeTime :" + String.valueOf(vibeTime));
 
-            //TODO
-            Context context = getApplicationContext();
-            Toast.makeText(context, "Vibration Time: " + vibeTime, Toast.LENGTH_LONG).show();
-
-
-            long[] strVibePtn = {500, vibeTime};
-
             // メール通知とかぶらないように待機
-            sleep(1500);
+            sleep(1000);
+
+//            Context context = getApplicationContext();
+//            Toast.makeText(context, "Vibration Time: " + vibeTime, Toast.LENGTH_LONG).show();
+
+            //long[] strVibePtn = {500, vibeTime};
             // バイブレーション
             //vibrator.vibrate(vibeTime);
+
+            long[] strVibePtn;
+            if (vibeTime == 2000) {
+                strVibePtn = new long[]{300, 700, 300, 700};
+            } else if (vibeTime == 10000) {
+                strVibePtn = new long[]{300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700};
+            } else {
+                strVibePtn = new long[]{300, 700, 300, 700, 300, 700, 300, 700, 300, 700};
+            }
+
+            // バイブレーション
             vibrator.vibrate(strVibePtn, -1);
+
+            PowerManager.WakeLock mWakeLock;
+            PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+            mWakeLock = powerManager.newWakeLock(
+                    (PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "MyWakeLockTag");
+            mWakeLock.acquire(vibeTime);
 
         } else if (TAP_ACTION_PATH.equals(messageEvent.getPath())) {
             Log.d(TAG, "Tapping Received !!");
