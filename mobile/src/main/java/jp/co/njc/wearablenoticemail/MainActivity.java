@@ -36,6 +36,22 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         res = this.getResources();
+
+//        // Create local file
+//        try {
+//            FileOutputStream fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+//            PrintWriter writer = new PrintWriter(new OutputStreamWriter(fos, "UTF-8"));
+//
+//            writer.println("");
+//            writer.println("5");
+//            writer.println("0");
+//            writer.println("0");
+//
+//            writer.close();
+//            fos.close();
+//        } catch (IOException ioe) {
+//            Log.e(TAG, ioe.getMessage());
+//        }
     }
 
     @Override

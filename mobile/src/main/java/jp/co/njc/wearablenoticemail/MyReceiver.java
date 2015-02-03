@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -114,6 +115,12 @@ public class MyReceiver extends BroadcastReceiver {
                 }
                 reader.close();
                 fis.close();
+
+                Log.d(TAG, "Label: " + lblSaving);
+                Log.d(TAG, "Vibration Time: " + vibeTime);
+
+                //TODO
+                //Toast.makeText(context, "Label: " + lblSaving + ", Vibration Time: " + vibeTime, Toast.LENGTH_LONG).show();
 
             } catch (IOException ioe) {
                 // ファイルがない場合

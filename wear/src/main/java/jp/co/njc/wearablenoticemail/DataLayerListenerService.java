@@ -1,7 +1,10 @@
 package jp.co.njc.wearablenoticemail;
 
+import android.content.Context;
 import android.os.Vibrator;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
@@ -37,10 +40,18 @@ public class DataLayerListenerService extends WearableListenerService {
 
             Log.d(TAG, "vibeTime :" + String.valueOf(vibeTime));
 
+            //TODO
+            Context context = getApplicationContext();
+            Toast.makeText(context, "Vibration Time: " + vibeTime, Toast.LENGTH_LONG).show();
+
+
+            long[] strVibePtn = {500, vibeTime};
+
             // メール通知とかぶらないように待機
-            sleep(1000);
+            sleep(1500);
             // バイブレーション
-            vibrator.vibrate(vibeTime);
+            //vibrator.vibrate(vibeTime);
+            vibrator.vibrate(strVibePtn, -1);
 
         } else if (TAP_ACTION_PATH.equals(messageEvent.getPath())) {
             Log.d(TAG, "Tapping Received !!");

@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ラベル名"
+        android:text="@string/label_title"
         />
     <EditText
         android:id="@+id/lblName"
@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="振動時間"
+        android:text="@string/vibration_time"
         />
     <RadioGroup
         android:id="@+id/vibe_radio"
@@ -31,17 +31,17 @@
             android:id="@+id/vibe_radio_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2秒"/>
+            android:text="@string/two_second"/>
         <RadioButton
             android:id="@+id/vibe_radio_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5秒"/>
+            android:text="@string/five_second"/>
         <RadioButton
             android:id="@+id/vibe_radio_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10秒"/>
+            android:text="@string/ten_second"/>
     </RadioGroup>
 
 

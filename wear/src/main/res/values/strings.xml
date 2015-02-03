@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="version">0.1.2</string>
+
     <string name="app_name">Wearable Notice Mail</string>
+    <string name="version_name">バージョン</string>
+
 </resources>
