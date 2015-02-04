@@ -44,9 +44,8 @@ public class DataLayerListenerService extends WearableListenerService {
 //            Context context = getApplicationContext();
 //            Toast.makeText(context, "Vibration Time: " + vibeTime, Toast.LENGTH_LONG).show();
 
-            //long[] strVibePtn = {500, vibeTime};
-            // バイブレーション
-            //vibrator.vibrate(vibeTime);
+//            // バイブレーション
+//            vibrator.vibrate(vibeTime);
 
             long[] strVibePtn;
             if (vibeTime == 2000) {
