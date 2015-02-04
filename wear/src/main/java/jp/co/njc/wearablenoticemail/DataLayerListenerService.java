@@ -1,8 +1,10 @@
 package jp.co.njc.wearablenoticemail;
 
+import android.content.Context;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
@@ -44,20 +46,19 @@ public class DataLayerListenerService extends WearableListenerService {
 //            Context context = getApplicationContext();
 //            Toast.makeText(context, "Vibration Time: " + vibeTime, Toast.LENGTH_LONG).show();
 
+//            long[] strVibePtn;
+//            if (vibeTime == 2000) {
+//                strVibePtn = new long[]{300, 700, 300, 700};
+//            } else if (vibeTime == 10000) {
+//                strVibePtn = new long[]{300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700};
+//            } else {
+//                strVibePtn = new long[]{300, 700, 300, 700, 300, 700, 300, 700, 300, 700};
+//            }
 //            // バイブレーション
-//            vibrator.vibrate(vibeTime);
-
-            long[] strVibePtn;
-            if (vibeTime == 2000) {
-                strVibePtn = new long[]{300, 700, 300, 700};
-            } else if (vibeTime == 10000) {
-                strVibePtn = new long[]{300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700, 300, 700};
-            } else {
-                strVibePtn = new long[]{300, 700, 300, 700, 300, 700, 300, 700, 300, 700};
-            }
+//            vibrator.vibrate(strVibePtn, -1);
 
             // バイブレーション
-            vibrator.vibrate(strVibePtn, -1);
+            vibrator.vibrate(vibeTime);
 
             PowerManager.WakeLock mWakeLock;
             PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);

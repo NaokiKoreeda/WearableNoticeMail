@@ -162,7 +162,32 @@ public class MyReceiver extends BroadcastReceiver {
                     Log.d(TAG, "Unread Count(Local): " + String.valueOf(intUnreadLocal));
 
                     // ローカルファイルに現状を書き込み
-                    this.setLocalFile(context, lblSaving, vibeTime, strAllCnt, strUnreadCnt);
+                    //this.setLocalFile(context, lblSaving, vibeTime, strAllCnt, strUnreadCnt);
+                    final Context fContext = context;
+                    final String fLabelName = lblSaving;
+                    final String fVibeTime = vibeTime;
+                    final String fAllCnt = strAllCnt;
+                    final String fUnreadCnt = strUnreadCnt;
+                    (new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // モバイルでのGmail設定で、新着ごとに通知する場合の振動停止対策として、
+                            // ローカルファイルへの書き込みを10秒遅らせる
+                            sleep(10000);
+                            try {
+                                FileOutputStream fos = fContext.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+                                PrintWriter writer = new PrintWriter(new OutputStreamWriter(fos, "UTF-8"));
+                                writer.println(fLabelName);
+                                writer.println(fVibeTime);
+                                writer.println(fAllCnt);
+                                writer.println(fUnreadCnt);
+                                writer.close();
+                                fos.close();
+                            } catch (IOException ioe) {
+                                Log.e(TAG, ioe.getMessage());
+                            }
+                        }
+                    })).start();
 
                     if (isNotification) {
                         sendMessageToStartActivity(vibeTime.getBytes());
